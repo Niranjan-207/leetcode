@@ -1,38 +1,51 @@
-// Last updated: 4/23/2026, 8:33:58 PM
-1class Solution {
-2public:
-3    vector<long long> distance(vector<int>& nums) {
-4        int n=nums.size();
-5        vector<long long> ans(n,0);
-6
-7        unordered_map<int,pair<long long,int>> mp;
-8        for(int i=0;i<n;i++){
-9            int num=nums[i];
-10
-11            if(mp.find(num)==mp.end()){
-12                mp[num]={i,1};
-13            }else{
-14                long long sum=mp[num].first;
-15                int cnt=mp[num].second;
-16                ans[i]+=((1ll*cnt*i)-sum);
-17                mp[num].first+=i;
-18                mp[num].second++;
-19            }
-20        }
-21        mp.clear();
-22        for(int i=n-1;i>=0;i--){
-23            int num=nums[i];
-24
-25            if(mp.find(num)==mp.end()){
-26                mp[num]={i,1};
-27            }else{
-28                long long sum=mp[num].first;
-29                int cnt=mp[num].second;
-30                ans[i]+=(sum-(1ll*cnt*i));
-31                mp[num].first+=i;
-32                mp[num].second++;
-33            }
-34        }
-35        return ans;
-36    }
-37};
+// Last updated: 4/23/2026, 8:42:48 PM
+class Solution {
+public:
+    vector<long long> distance(vector<int>& nums) {
+        unordered_map<int, vector<int>> mp;
+        for (int i = 0; i < nums.size(); i++) {
+            mp[nums[i]].push_back(i);
+        }
+
+        vector<long long> ans(nums.size(), 0);
+        
+        for (auto& [num, indices] : mp) {
+            // vector<long long> prefix(indices.begin(), indices.end());
+
+            // as we are iterating on the indices from left to right and as we are not processing 
+            // random queries we don't need to store the whole prefix sum into an 
+            // array, we can have a totalSum and a running prefixSum using which we can 
+            // calculate the leftSum and rightSum easily/effeciently
+            long long totalSum = accumulate(indices.begin(), indices.end(), 0LL);
+
+            // auto getLeftSum = [&](int r) -> long long {
+            //     return r > 0 ? prefix[r - 1] : 0;
+            // };
+
+            // auto getRightSum = [&](int l) -> long long {
+            //     return prefix[prefix.size() - 1] - prefix[l];
+            // };
+
+            long long prefix = 0;
+
+            for(int i = 0; i < indices.size(); i++){
+                // long long leftSum = getLeftSum(i);
+                // long long rightSum = getRightSum(i);
+                // int elementsOnLeft = i;
+                // int elementsOnRight = (prefix.size() - i - 1);
+                // long long totalLeftSum = ((long long)elementsOnLeft * indices[i]) - leftSum;
+                // long long totalRightSum = rightSum - ((long long)elementsOnRight * indices[i]);
+                // ans[indices[i]] = totalLeftSum + totalRightSum;
+
+                long long leftSum = prefix;
+                prefix += indices[i];
+                long long rightSum = totalSum - prefix;
+                long long totalLeftSum = ((long long)i * indices[i]) - leftSum;
+                long long totalRightSum = rightSum - ((long long)(indices.size() - i - 1) * indices[i]);
+                ans[indices[i]] = totalLeftSum + totalRightSum;
+            }
+        }
+
+        return ans;
+    }
+};
