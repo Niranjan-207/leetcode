@@ -1,10 +1,10 @@
-// Last updated: 5/2/2026, 2:11:39 PM
+// Last updated: 5/2/2026, 2:12:08 PM
 1class Solution {
 2public:
 3    bool f(int idx,vector<int>& nums,double sum,vector<vector<int>>& dp){
 4        if(sum==0)  return true;
-5        if(idx==0 && nums[0]==sum)  return true;
-6        if(idx<=0)  return false;
+5        //if(idx==0 && nums[0]==sum)  return true;
+6        if(idx<0)  return false;
 7
 8        if(dp[idx][sum]!=-1)    return dp[idx][sum];
 9
