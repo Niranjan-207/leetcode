@@ -1,4 +1,4 @@
-// Last updated: 5/2/2026, 12:25:08 PM
+// Last updated: 5/2/2026, 12:28:28 PM
 1class Solution {
 2public:
 3// set<char> se={'0','1','8','2','5','6','9'};
@@ -11,7 +11,7 @@
 10            string s=to_string(i);
 11            bool flag=true;
 12            bool can=false;
-13            for(char c:s){
+13            for(char& c:s){
 14                if(sr.find(c)==sr.end())   can=true;
 15                if(se.find(c)!=se.end()){
 16                    flag=false;
