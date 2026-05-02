@@ -1,25 +1,37 @@
-// Last updated: 5/2/2026, 2:12:08 PM
-1class Solution {
-2public:
-3    bool f(int idx,vector<int>& nums,double sum,vector<vector<int>>& dp){
-4        if(sum==0)  return true;
-5        //if(idx==0 && nums[0]==sum)  return true;
-6        if(idx<0)  return false;
-7
-8        if(dp[idx][sum]!=-1)    return dp[idx][sum];
-9
-10        bool notTake=f(idx-1,nums,sum,dp);
-11
-12        bool take=false;
-13        if(nums[idx]<=sum)  take=f(idx-1,nums,sum-nums[idx],dp);
-14
-15        return dp[idx][sum]=(take || notTake);         
-16    }
-17
-18    bool canPartition(vector<int>& nums) {
-19        double target=accumulate(begin(nums),end(nums),0)/2.0;
-20        int n=nums.size();
-21        vector<vector<int>> dp(n,vector<int>(target+1,-1));
-22        return f(n-1,nums,target,dp);//idx nums target dp
-23    }
-24};
+// Last updated: 5/2/2026, 2:13:56 PM
+#include <bitset>
+#include <numeric>
+
+static const int speedup = []() {
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    return 0;
+}();
+
+class Solution {
+public:
+    bool canPartition(vector<int>& nums) {
+        int total_sum = accumulate(nums.begin(), nums.end(), 0);
+        
+        // If the total sum is odd, we cannot split it into two equal integer sums
+        if (total_sum % 2 != 0) return false;
+        
+        int target = total_sum / 2;
+        
+        // Constraints: nums.length <= 200, nums[i] <= 100. 
+        // Max target sum = (200 * 100) / 2 = 10000.
+        bitset<10001> dp;
+        dp[0] = 1; // Base case: a sum of 0 is always possible
+        
+        for (int num : nums) {
+            // Left shift the bitset by 'num' and OR it with the original
+            // This marks all new possible sums reachable by adding 'num'
+            dp |= (dp << num);
+            
+            // Early exit if we already reached the target
+            if (dp[target]) return true;
+        }
+        
+        return dp[target];
+    }
+};
