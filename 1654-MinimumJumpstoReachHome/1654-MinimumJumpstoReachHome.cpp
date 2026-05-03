@@ -1,9 +1,9 @@
-// Last updated: 5/3/2026, 11:22:50 PM
+// Last updated: 5/3/2026, 11:24:03 PM
 1class Solution {
 2public:
 3    int minimumJumps(vector<int>& forbidden, int a, int b, int x) {
-4        set<int> se(begin(forbidden),end(forbidden));
-5        vector<vector<bool>> vis(50000,vector<bool>(2,false));
+4        unordered_set<int> se(begin(forbidden),end(forbidden));
+5        vector<vector<bool>> vis(6000,vector<bool>(2,false));
 6        queue<pair<int,int>> q;
 7        q.push({0,0});
 8        vis[0][0]=true;
@@ -21,7 +21,7 @@
 20                if(cur==x)  return steps;
 21
 22                int forward=cur+a;
-23                if(forward<50000 && !vis[forward][0] && se.find(forward)==se.end()){
+23                if(forward<6000 && !vis[forward][0] && se.find(forward)==se.end()){
 24                    vis[forward][0]=true;
 25                    q.push({forward,0});
 26                }
