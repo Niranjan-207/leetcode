@@ -1,4 +1,4 @@
-// Last updated: 5/3/2026, 12:05:47 PM
+// Last updated: 5/3/2026, 12:25:30 PM
 1class Solution {
 2public:
 3    int f(string& s1,string& s2,int idx1,int idx2,vector<vector<int>>& dp){
@@ -14,9 +14,19 @@
 13        return dp[idx1][idx2]=max(match,notMatch);
 14    }
 15
-16    int longestCommonSubsequence(string text1, string text2) {
-17        int n=text1.length(),m=text2.length();
-18        vector<vector<int>> dp(n,vector<int>(m,-1));
-19        return f(text1,text2,n-1,m-1,dp);
-20    }
-21};
+16    int longestCommonSubsequence(string s1, string s2) {
+17        int n=s1.length(),m=s2.length();
+18        vector<vector<int>> dp(n+1,vector<int>(m+1,0));
+19        //return f(text1,text2,n-1,m-1,dp);
+20        for(int i=1;i<=n;i++){
+21            for(int j=1;j<=m;j++){
+22                if(s1[i-1]==s2[j-1]){
+23                    dp[i][j]=1+dp[i-1][j-1];
+24                }else{
+25                    dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
+26                }
+27            }
+28        }
+29        return dp[n][m];
+30    }
+31};
