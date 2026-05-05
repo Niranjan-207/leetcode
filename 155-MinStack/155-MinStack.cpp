@@ -1,4 +1,4 @@
-// Last updated: 5/5/2026, 12:39:47 PM
+// Last updated: 5/5/2026, 12:40:47 PM
 1class MinStack {
 2public:
 3    stack<int> st,mst;
@@ -7,13 +7,13 @@
 6    }
 7    
 8    void push(int val) {
-9        if(st.empty()){
-10            st.push(val);
+9        st.push(val);
+10        if(mst.empty()){
 11            mst.push(val);
-12            return;
-13        }
-14        st.push(val);
-15        mst.push(min(mst.top(),val));
+12        }else{
+13            mst.push(min(mst.top(),val));
+14        }
+15        
 16    }
 17    
 18    void pop() {
