@@ -1,15 +1,15 @@
-// Last updated: 5/5/2026, 11:34:26 AM
+// Last updated: 5/5/2026, 11:35:22 AM
 1class Solution {
 2public:
 3    string minRemoveToMakeValid(string s) {
 4        stack<int> st;
 5        for(int i=0;i<s.length();i++){
-6            char c=s[i];
+6            char& c=s[i];
 7            if(c=='(')  st.push(i);
 8            else if(c==')'){
 9                if(st.empty())  st.push(i);
 10                else{
-11                    char to=s[st.top()];
+11                    char& to=s[st.top()];
 12                    if(c==')' && to=='(')   st.pop();
 13                    else    st.push(i);
 14                }
