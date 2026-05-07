@@ -1,4 +1,4 @@
-// Last updated: 5/7/2026, 12:02:04 PM
+// Last updated: 5/7/2026, 12:04:40 PM
 class Solution {
  public:
   int nearestExit(vector<vector<char>>& maze, vector<int>& entrance) {
