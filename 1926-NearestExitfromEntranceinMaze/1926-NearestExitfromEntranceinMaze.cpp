@@ -1,4 +1,4 @@
-// Last updated: 5/7/2026, 12:00:00 PM
+// Last updated: 5/7/2026, 12:00:43 PM
 1class Solution {
 2public:
 3    int nearestExit(vector<vector<char>>& maze, vector<int>& entrance) {
@@ -16,13 +16,13 @@
 15
 16        while(!q.empty()){
 17            int qn=q.size();
-18            cnt++;
+18            
 19            for(int i=0;i<qn;i++){
 20                cout<<cnt<<" ";
 21                auto [x,y]=q.front();
 22                q.pop();
 23
-24                if((x==0 || x==n-1 || y==0 || y==m-1) && (x!=ex || y!=ey) )    return cnt-1;
+24                if((x==0 || x==n-1 || y==0 || y==m-1) && (x!=ex || y!=ey) )    return cnt;
 25
 26                for(int i=0;i<4;i++){
 27                    int nx=x+X[i];
@@ -34,8 +34,9 @@
 33                    }
 34                }
 35            }
-36            
-37        }
-38        return -1;
-39    }
-40};
+36            cnt++;
+37            
+38        }
+39        return -1;
+40    }
+41};
