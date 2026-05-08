@@ -1,4 +1,4 @@
-// Last updated: 5/8/2026, 9:54:12 AM
+// Last updated: 5/8/2026, 9:54:40 AM
 1class Solution {
 2public:
 3    
@@ -15,8 +15,8 @@
 14        for(int i=0;i<n;i++){
 15            for(int j=0;j<m;j++){
 16                if(mat[i][j]==1e9){
-17                    if(i>0)   mat[i][j]=min(mat[i][j],mat[i-1][j]+1);
-18                    if(j>0)   mat[i][j]=min(mat[i][j],mat[i][j-1]+1);
+17                    if(i-1>=0)   mat[i][j]=min(mat[i][j],mat[i-1][j]+1);
+18                    if(j-1>=0)   mat[i][j]=min(mat[i][j],mat[i][j-1]+1);
 19                    //if(i-1>0 && j-1>0)  mat[i][j]=min(mat[i][j],mat[i-1][j-1]+1);
 20                }
 21            }
