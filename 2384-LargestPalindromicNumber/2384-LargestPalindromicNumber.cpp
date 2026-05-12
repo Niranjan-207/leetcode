@@ -1,32 +1,85 @@
-// Last updated: 5/12/2026, 10:51:38 PM
-1class Solution {
-2public:
-3    string largestPalindromic(string num) {
-4        vector<int> fre(10,0);
-5        for(char c:num){
-6            fre[c-'0']++;
-7        }
-8
-9        string left="";
-10        for(int dig=9;dig>=0;dig--){
-11            int cnt=fre[dig]/2;
-12            if(dig==0 && left=="") continue;
-13            while(cnt--){
-14                left+=(dig+'0');
-15            }
-16        }
-17
-18        string right=left;
-19        reverse(begin(right),end(right));
-20
-21        string mid="";
-22        
-23        for(int dig=9;dig>=0;dig--){
-24            if(fre[dig]&1){  mid+=(dig+'0');break;}
-25        }
-26        
-27        string ans=left+mid+right;
-28        if(ans=="")  return "0";
-29        return ans;
-30    }
-31};
+// Last updated: 5/12/2026, 10:51:59 PM
+class Solution {
+public:
+    int cnt[10];
+    string largestPalindromic(string num) {
+        
+        memset(cnt,0,sizeof(cnt));
+        for(int i=0;i<num.size();i++)
+        {
+            int digit=int(num[i]-'0');
+            cnt[digit]++;
+        }
+        
+        // for(auto it:cnt)
+        // {
+        //     cout<<it<<" ";
+        // }
+        // cout<<"\n";
+
+        int len=0;
+        int mid_digit=-1;
+        for(int i=1;i<10;i++)
+        {
+            if(cnt[i]%2==0) len=len+cnt[i];
+            else if(cnt[i]>0) 
+            {
+                mid_digit=i;
+                cnt[i]--;
+                len=len+cnt[i];
+            }
+            else cnt[i]=0;
+        }
+
+
+        if(len>0)
+        {
+            if(cnt[0]%2==0) len+=cnt[0];
+            else 
+            {
+                cnt[0]--;
+                mid_digit=max(0,mid_digit);
+                len=len+cnt[0];
+            }
+        }
+        else
+        {
+            mid_digit=max(0,mid_digit);
+            string temp = "";
+            temp=temp+char(mid_digit+'0');
+            return temp;
+        }
+
+
+        if(mid_digit!=-1) len++;
+        string ans;
+        ans.resize(len);
+        int ptr=0;
+        for(int i=9;i>=0;i--)
+        {
+            int half=cnt[i]/2;
+            while(cnt[i]>half)
+            {
+                ans[ptr]=char(i+'0');
+                cnt[i]--;
+                ptr++;
+            }
+        }
+        if(mid_digit!=-1)
+        {
+            ans[ptr]=char(mid_digit+'0');
+            ptr++;
+        }
+
+        for(int i=0;i<10;i++)
+        {
+            while(cnt[i]>0)
+            {
+                ans[ptr]=char(i+'0');
+                cnt[i]--;
+                ptr++;
+            }
+        }
+        return ans;
+    }
+};
