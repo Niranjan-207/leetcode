@@ -1,4 +1,4 @@
-// Last updated: 5/14/2026, 6:25:36 PM
+// Last updated: 5/14/2026, 6:25:49 PM
 1class Solution {
 2public:
 3    
@@ -7,7 +7,7 @@
 6        int mod=1e9+7;
 7        int n=nums.size();
 8        vector<int> fre(n);
-9        for(vector<int> request:requests){
+9        for(vector<int>& request:requests){
 10            fre[request[0]]+=1;
 11            if(request[1]+1<n){
 12                fre[request[1]+1]-=1;
