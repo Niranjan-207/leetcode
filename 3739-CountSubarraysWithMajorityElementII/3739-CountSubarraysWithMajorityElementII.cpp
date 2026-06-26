@@ -1,4 +1,4 @@
-// Last updated: 6/27/2026, 12:36:23 AM
+// Last updated: 6/27/2026, 12:36:32 AM
 1class Solution {
 2public:
 3    #define ll long long
@@ -10,7 +10,7 @@
 9
 10        ll validPoints=0,ans=0;
 11
-12        for(int num:nums){
+12        for(int& num:nums){
 13            if(num==target){
 14                validPoints+=mp[cumSum];
 15                cumSum++;
