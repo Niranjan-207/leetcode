@@ -1,8 +1,8 @@
-// Last updated: 6/27/2026, 3:00:02 PM
+// Last updated: 6/27/2026, 3:09:01 PM
 1class Solution {
 2public:
 3    int maximumLength(vector<int>& nums) {
-4        map<int,int> mp;
+4        unordered_map<int,int> mp;
 5        for(int num:nums)   mp[num]++;
 6
 7        int ans=0;
@@ -18,7 +18,7 @@
 17            
 18            long long base=num;
 19            int cnt=0;
-20            while(mp[base]>=2 && !(base > INT_MAX / base) && mp[base*base]>=1 && base<ma){
+20            while(!(base > INT_MAX / base) && mp[base]>=2 && mp.count((int)(base * base)) && base<ma){
 21                cnt+=2;
 22                base*=base;
 23            }
