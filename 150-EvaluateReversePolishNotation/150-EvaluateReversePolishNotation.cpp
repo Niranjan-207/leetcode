@@ -1,27 +1,29 @@
-// Last updated: 4/4/2026, 11:06:23 PM
-class Solution {
-public:
-    int evalRPN(vector<string>& tokens) {
-        stack<long long> st;
-        for(string& c:tokens){
-            if(c=="+" || c=="-" || c=="*" || c=="/"){
-                long long b=st.top();st.pop();
-                long long a=st.top();st.pop();
-                long long result=0;
-                if(c=="+"){
-                    result=a+b;
-                }else if(c=="-"){
-                    result=a-b;
-                }else if(c=="/"){
-                    result=a/b;
-                }else{
-                    result=a*b;
-                }
-                st.push(result);
-            }else{
-                st.push(stoll(c));
-            }
-        }
-        return st.top();
-    }
-};
+// Last updated: 6/30/2026, 1:18:16 AM
+1class Solution {
+2public:
+3    int evalRPN(vector<string>& tokens) {
+4        stack<int> st;
+5        for(string c:tokens){
+6            if(c=="+"){
+7                int num1=st.top();st.pop();
+8                int num2=st.top();st.pop();
+9                st.push(num1+num2);
+10            }else if(c=="-"){
+11                int num1=st.top();st.pop();
+12                int num2=st.top();st.pop();
+13                st.push(num2-num1);
+14            }else if(c=="*"){
+15                int num1=st.top();st.pop();
+16                int num2=st.top();st.pop();
+17                st.push(num1*num2);
+18            }else if(c=="/"){
+19                int num1=st.top();st.pop();
+20                int num2=st.top();st.pop();
+21                st.push(num2/num1);
+22            }else{
+23                st.push(stoi(c));
+24            }
+25        }
+26        return st.top();
+27    }
+28};
